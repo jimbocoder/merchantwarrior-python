@@ -47,30 +47,26 @@ auth_transaction = mw.Transaction(
     product='Test Product 420'
 )
 
-print "Attempting to process an AUTH transaction\n"
-response = api.process_auth(auth_transaction, customer, card)
+print "Attempting to process a transaction\n"
+response = api.process_card(transaction, customer, card)
 
-pprint(response)
-# print "Attempting to process a transaction\n"
-# response = api.process_card(transaction, customer, card)
-#
 if response.success:
     print "\nSuccessfully processed transaction"
     print "Response code: " + response.response_code
     print "Response message: " + response.response_message
     print "Transaction Id: " + str(response.transaction_id)
 
-    # print "\nAttempting to query card"
-    # query_response = api.query_card(transaction)
-    # print "\nSuccessfully queried card"
-    # print "Response code: " + query_response.response_code
-    # print "Response message: " + str(query_response.response_message)
-    #
-    # print "\nAttempting to refund the same transaction by transactionId"
-    # refund_response = api.refund_card(transaction, transaction.amount)
-    # print "Successfully refunded transactionId: " + transaction.id
-    # print "Response code: " + response.response_code
-    # print "Response message: " + str(refund_response.response_message)
+    print "\nAttempting to query card"
+    query_response = api.query_card(transaction)
+    print "\nSuccessfully queried card"
+    print "Response code: " + query_response.response_code
+    print "Response message: " + str(query_response.response_message)
+
+    print "\nAttempting to refund the same transaction by transactionId"
+    refund_response = api.refund_card(transaction, transaction.amount)
+    print "Successfully refunded transactionId: " + transaction.id
+    print "Response code: " + response.response_code
+    print "Response message: " + str(refund_response.response_message)
 else:
     print "\nAn error occurred while trying to process your transaction"
 
